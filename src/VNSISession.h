@@ -22,7 +22,7 @@
 
 #include <stdint.h>
 #include <string>
-#include "../../../lib/platform/threads/threads.h"
+#include "xbmc/threads/threads.h"
 
 
 class cResponsePacket;

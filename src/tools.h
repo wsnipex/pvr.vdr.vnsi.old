@@ -26,7 +26,7 @@
 uint64_t ntohll(uint64_t a);
 uint64_t htonll(uint64_t a);
 
-#include "libXBMC_codec.h"
+#include "xbmc/libXBMC_codec.h"
 
 class CodecDescriptor
 {

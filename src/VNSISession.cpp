@@ -31,8 +31,8 @@
 #include "requestpacket.h"
 #include "vnsicommand.h"
 #include "tools.h"
-#include "../../../lib/platform/sockets/tcp.h"
-#include "../../../lib/platform/util/timeutils.h"
+#include "xbmc/sockets/tcp.h"
+#include "xbmc/util/timeutils.h"
 
 /* Needed on Mac OS/X */
  

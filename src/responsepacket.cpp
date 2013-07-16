@@ -26,7 +26,7 @@
 #include "vnsicommand.h"
 #include "tools.h"
 #include "client.h"
-#include "../../../lib/platform/sockets/tcp.h"
+#include "xbmc/sockets/tcp.h"
 
 cResponsePacket::cResponsePacket()
 {

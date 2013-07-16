@@ -26,7 +26,7 @@
 #include "requestpacket.h"
 #include "vnsicommand.h"
 #include "tools.h"
-#include "../../../lib/platform/sockets/tcp.h"
+#include "xbmc/sockets/tcp.h"
 
 uint32_t cRequestPacket::serialNumberCounter = 1;
 

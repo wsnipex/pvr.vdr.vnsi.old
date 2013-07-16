@@ -24,7 +24,7 @@
 #include "client.h"
 #include <string>
 #include <map>
-#include "xbmc_stream_utils.hpp"
+#include "xbmc/xbmc_stream_utils.hpp"
 
 class cResponsePacket;
 
