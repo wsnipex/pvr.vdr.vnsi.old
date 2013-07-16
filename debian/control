@@ -1,0 +1,15 @@
+Source: xbmc-pvr-vdr-vnsi
+Priority: extra
+Maintainer: Arne Morten Kvarving <arne.morten.kvarving@sintef.no>
+Build-Depends: debhelper (>= 8.0.0), cmake, libtinyxml-dev, xbmc-pvr-dev,
+               libxbmcplatform-dev, xbmc-addon-dev
+Standards-Version: 3.9.2
+Section: libs
+Homepage: <insert the upstream URL, if relevant>
+
+Package: xbmc-pvr-vdr-vnsi
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: VDR PVR for XBMC
+ VDR PVR for XBMC
