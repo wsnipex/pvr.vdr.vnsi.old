@@ -12,5 +12,18 @@
 %:
 	dh $@ 
 
+override_dh_clean:
+	$(MAKE) clean -C vdr-plugin-vnsiserver
+	dh_clean
+
 override_dh_auto_configure:
 	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=1
+
+override_dh_auto_build:
+	VDRDIR=/usr/include/vdr LIBDIR=$(CURDIR)/debian/vdr-plugin-vnsiserver/usr/lib/vdr/plugins LOCALEDIR=locale $(MAKE) compile -C vdr-plugin-vnsiserver
+	dh_auto_build
+
+override_dh_auto_install:
+	VDRDIR=/usr/include/vdr LIBDIR=$(CURDIR)/debian/vdr-plugin-vnsiserver/usr/lib/vdr/plugins LOCALEDIR=locale $(MAKE) install-lib -C addons/pvr.vdr.vnsi/vdr-plugin-vnsiserver
+	dh_auto_install
+
