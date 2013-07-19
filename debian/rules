@@ -24,6 +24,6 @@ override_dh_auto_build:
 	dh_auto_build
 
 override_dh_auto_install:
-	VDRDIR=/usr/include/vdr LIBDIR=$(CURDIR)/debian/vdr-plugin-vnsiserver/usr/lib/vdr/plugins LOCALEDIR=locale $(MAKE) install-lib -C addons/pvr.vdr.vnsi/vdr-plugin-vnsiserver
+	VDRDIR=/usr/include/vdr LIBDIR=$(CURDIR)/debian/vdr-plugin-vnsiserver/usr/lib/vdr/plugins LOCALEDIR=locale $(MAKE) install-lib -C vdr-plugin-vnsiserver
 	dh_auto_install
 
