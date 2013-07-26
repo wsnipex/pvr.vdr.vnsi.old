@@ -17,12 +17,16 @@ override_dh_clean:
 	dh_clean
 
 override_dh_auto_configure:
-	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=1
+	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=1 -DUSE_LTO=1 -DCMAKE_INSTALL_PREFIX=/usr
 	debian/prepare-vnsiserver.sh
 
 override_dh_auto_build:
 	VDRDIR=/usr/include/vdr LIBDIR=$(CURDIR)/debian/vdr-plugin-vnsiserver/usr/lib/vdr/plugins LOCALEDIR=locale $(MAKE) compile -C vdr-plugin-vnsiserver
 	dh_auto_build
+
+override_dh_strip:
+	dh_strip -pxbmc-pvr-vdr-vnsi --dbg-package=xbmc-pvr-vdr-vnsi-dbg
+	dh_strip -pvdr-plugin-vnsiserver --dbg-package=vdr-plugin-vnsiserver-dbg
 
 override_dh_auto_install:
 	VDRDIR=/usr/include/vdr LIBDIR=$(CURDIR)/debian/vdr-plugin-vnsiserver/usr/lib/vdr/plugins LOCALEDIR=locale $(MAKE) install-lib -C vdr-plugin-vnsiserver
@@ -34,3 +38,5 @@ override_dh_gencontrol:
              dh_gencontrol -p$$PACKAGE -- -ldebian/changelog -v$$VERSION ;\
 	done
 
+override_dh_installdocs:
+	dh_installdocs --link-doc=xbmc-pvr-vdr-vnsi
