@@ -1,8 +1,8 @@
 Source: xbmc-pvr-vdr-vnsi
 Priority: extra
 Maintainer: Arne Morten Kvarving <arne.morten.kvarving@sintef.no>
-Build-Depends: debhelper (>= 8.0.0), cmake, libtinyxml-dev, xbmc-pvr-dev,
-               libxbmcplatform-dev, xbmc-addon-dev, vdr-dev, devscripts, gawk, bash
+Build-Depends: debhelper (>= 8.0.0), cmake, libtinyxml-dev, xbmc-pvr-dev, libgles1-mesa-dev,
+               libxbmcplatform-dev, xbmc-addon-dev, vdr-dev, devscripts, gawk, bash,
 Standards-Version: 3.9.2
 Section: libs
 
@@ -23,12 +23,12 @@ Description: debug symbols for VDR PVR for XBMC
 Package: vdr-plugin-vnsiserver
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, ${vdr:Depends}
-Description: VDR-Network-Streaming-Interface - PVR API:#APIVERSION#
+Description: VDR-Network-Streaming-Interface
  VDR-Network-Streaming-Interface
 
 Package: vdr-plugin-vnsiserver-dbg
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, ${vdr:Depends}
-Description: debug symbols for VDR-Network-Streaming-Interface - PVR API:#APIVERSION#
+Description: debug symbols for VDR-Network-Streaming-Interface
  debug symbols for VDR-Network-Streaming-Interface
 
