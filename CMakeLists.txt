@@ -15,6 +15,8 @@ ADD_DEFINITIONS(-DUSE_DEMUX)
 IF(NOT WIN32)
   FIND_PACKAGE(OpenGLES)
   IF(OPENGLES_FOUND)
+    include(FindPkgConfig)
+    PKG_CHECK_MODULES(OpenGLES2 REQUIRED glesv2)
     SET(SOURCES src/EGLHelpers/VisGUIShader.cpp
                 src/EGLHelpers/VisMatrixGLES.cpp
                 src/EGLHelpers/VisShader.cpp)
