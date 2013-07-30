@@ -8,6 +8,9 @@
 
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
+VDRVER = $(shell dpkg -s vdr-dev | awk '/Version/ { print $$2 }')
+VDRx = $(shell dpkg --compare-versions $(VDRVER) ge 2.0 ; echo $$?) # returns 0 on vdr >= 2.0
+VDR2 = $(strip $(VDRx))
 
 %:
 	dh $@ 
@@ -21,7 +24,13 @@ override_dh_auto_configure:
 	debian/prepare-vnsiserver.sh
 
 override_dh_auto_build:
+ifeq ($(VDR2),0)
+	@echo "DETECTED VDR v2"
+	$(MAKE) -C vdr-plugin-vnsiserver
+else
+	@echo "OLD VDR"
 	VDRDIR=/usr/include/vdr LIBDIR=$(CURDIR)/debian/vdr-plugin-vnsiserver/usr/lib/vdr/plugins LOCALEDIR=locale $(MAKE) compile -C vdr-plugin-vnsiserver
+endif
 	dh_auto_build
 
 override_dh_strip:
@@ -29,7 +38,11 @@ override_dh_strip:
 	dh_strip -pvdr-plugin-vnsiserver --dbg-package=vdr-plugin-vnsiserver-dbg
 
 override_dh_auto_install:
+ifeq ($(VDR2),0)
+	DESTDIR=$(CURDIR)/debian/vdr-plugin-vnsiserver $(MAKE) install -C vdr-plugin-vnsiserver
+else
 	VDRDIR=/usr/include/vdr LIBDIR=$(CURDIR)/debian/vdr-plugin-vnsiserver/usr/lib/vdr/plugins LOCALEDIR=locale $(MAKE) install-lib -C vdr-plugin-vnsiserver
+endif
 	dh_auto_install
 
 override_dh_gencontrol:
