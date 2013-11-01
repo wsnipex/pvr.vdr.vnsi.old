@@ -1,53 +1,51 @@
-PROJECT(pvr.vdr.vnsi)
+project(pvr.vdr.vnsi)
 
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+cmake_minimum_required(VERSION 2.6)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR})
 
-ENABLE_LANGUAGE(CXX)
+enable_language(CXX)
 
-FIND_PACKAGE(xbmc REQUIRED)
-FIND_PACKAGE(xbmcplatform REQUIRED)
-addon_version(pvr.vdr.vnsi VDR)
+find_package(xbmc REQUIRED)
+find_package(xbmcplatform REQUIRED)
 
-ADD_DEFINITIONS(-DUSE_DEMUX)
+add_definitions(-DUSE_DEMUX)
 
-IF(NOT WIN32)
-  FIND_PACKAGE(OpenGLES)
-  IF(OPENGLES_FOUND)
+if(NOT WIN32)
+  find_package(OpenGLES)
+  if(OPENGLES_FOUND)
     include(FindPkgConfig)
-    PKG_CHECK_MODULES(OpenGLES2 REQUIRED glesv2)
-    SET(SOURCES src/EGLHelpers/VisGUIShader.cpp
-                src/EGLHelpers/VisMatrixGLES.cpp
-                src/EGLHelpers/VisShader.cpp)
-    ADD_DEFINITIONS(-DHAVE_GLES2)
-    SET(INCLUDES ${OPENGLES_INCLUDE_DIR})
-    SET(DEPLIBS ${OPENGLES_LIBRARIES})
-  ELSE(OPENGLES_FOUND)
-    FIND_PACKAGE(OpenGL REQUIRED)
-    SET(INCLUDES ${OpenGL_INCLUDE_DIR})
-    SET(DEPLIBS ${OPENGL_LIBRARIES})
-  ENDIF(OPENGLES_FOUND)
-ENDIF(NOT WIN32)
+    pkg_check_modules(OpenGLES2 REQUIRED glesv2)
+    set(VDR_SOURCES src/EGLHelpers/VisGUIShader.cpp
+                    src/EGLHelpers/VisMatrixGLES.cpp
+                    src/EGLHelpers/VisShader.cpp)
+    add_definitions(-DHAVE_GLES2)
+    set(INCLUDES ${OPENGLES_INCLUDE_DIR})
+    set(DEPLIBS ${OPENGLES_LIBRARIES})
+  else()
+    find_package(OpenGL REQUIRED)
+    set(INCLUDES ${OpenGL_INCLUDE_DIR})
+    set(DEPLIBS ${OPENGL_LIBRARIES})
+  endif()
+endif()
 
-SET(SOURCES ${SOURCES}
-            src/client.cpp
-            src/requestpacket.cpp
-            src/responsepacket.cpp
-            src/tools.cpp
-            src/VNSIAdmin.cpp
-            src/VNSIChannelScan.cpp
-            src/VNSIData.cpp
-            src/VNSIDemux.cpp
-            src/VNSIRecording.cpp
-            src/VNSISession.cpp)
+list(APPEND VDR_SOURCES src/client.cpp
+                        src/requestpacket.cpp
+                        src/responsepacket.cpp
+                        src/tools.cpp
+                        src/VNSIAdmin.cpp
+                        src/VNSIChannelScan.cpp
+                        src/VNSIData.cpp
+                        src/VNSIDemux.cpp
+                        src/VNSIRecording.cpp
+                        src/VNSISession.cpp)
 
-SET(DEPLIBS ${DEPLIBS}
-            ${xbmcplatform_LIBRARIES})
+list(APPEND DEPLIBS ${xbmcplatform_LIBRARIES})
 
-INCLUDE_DIRECTORIES(${INCLUDES}
+include_directories(${INCLUDES}
                     ${xbmcplatform_INCLUDE_DIRECTORIES}
                     ${XBMC_INCLUDE_DIR})
 
-build_addon(pvr.vdr.vnsi SOURCES DEPLIBS VDR_VERSION)
-install_addon(pvr.vdr.vnsi ${VDR_VERSION})
+build_addon(pvr.vdr.vnsi VDR DEPLIBS)
+
+include(CPack)
