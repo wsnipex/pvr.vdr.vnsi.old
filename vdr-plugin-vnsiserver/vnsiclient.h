@@ -83,7 +83,7 @@ public:
   cVNSIClient(int fd, unsigned int id, const char *ClientAdr);
   virtual ~cVNSIClient();
 
-  void ChannelChange();
+  void ChannelsChange();
   void RecordingsChange();
   void TimerChange();
   void EpgChange();
@@ -124,12 +124,18 @@ private:
   bool processRecStream_PositionFromFrameNumber();
   bool processRecStream_FrameNumberFromPosition();
   bool processRecStream_GetIFrame();
+  bool processRecStream_GetLength();
 
   bool processCHANNELS_GroupsCount();
   bool processCHANNELS_ChannelsCount();
   bool processCHANNELS_GroupList();
   bool processCHANNELS_GetChannels();
   bool processCHANNELS_GetGroupMembers();
+  bool processCHANNELS_GetCaids();
+  bool processCHANNELS_GetWhitelist();
+  bool processCHANNELS_GetBlacklist();
+  bool processCHANNELS_SetWhitelist();
+  bool processCHANNELS_SetBlacklist();
 
   void CreateChannelGroups(bool automatic);
 
@@ -147,6 +153,7 @@ private:
   bool processRECORDINGS_Rename();
   bool processRECORDINGS_Delete();
   bool processRECORDINGS_Move();
+  bool processRECORDINGS_GetEdl();
 
   bool processEPG_GetForChannel();
 

@@ -122,6 +122,7 @@ struct sStreamPacket
   bool      streamChange;
   bool      pmtChange;
   uint32_t  serial;
+  uint32_t  reftime;
 };
 
 struct sPtsWrap
@@ -224,6 +225,7 @@ public:
   const char *GetLanguage() { return m_language; }
   const eStreamContent Content() const { return m_streamContent; }
   const eStreamType Type() const { return m_streamType; }
+  void SetType(eStreamType type) { m_streamType = type; }
   const int GetPID() const { return m_pID; }
 
   /* Video Stream Information */

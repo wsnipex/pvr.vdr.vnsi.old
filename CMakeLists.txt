@@ -34,6 +34,7 @@ list(APPEND VDR_SOURCES src/client.cpp
                         src/responsepacket.cpp
                         src/tools.cpp
                         src/VNSIAdmin.cpp
+                        src/VNSIChannels.cpp
                         src/VNSIChannelScan.cpp
                         src/VNSIData.cpp
                         src/VNSIDemux.cpp
