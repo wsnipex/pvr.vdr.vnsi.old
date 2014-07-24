@@ -42,6 +42,9 @@ list(APPEND VDR_SOURCES src/client.cpp
                         src/VNSISession.cpp)
 
 list(APPEND DEPLIBS ${KODIPLATFORM_LIBRARIES})
+if(WIN32)
+  list(APPEND DEPLIBS ws2_32)
+endif()
 
 include_directories(${INCLUDES}
                     ${KODIPLATFORM_INCLUDE_DIRS}
