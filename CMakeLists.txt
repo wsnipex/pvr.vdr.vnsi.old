@@ -44,7 +44,7 @@ list(APPEND VDR_SOURCES src/client.cpp
 list(APPEND DEPLIBS ${KODIPLATFORM_LIBRARIES})
 
 include_directories(${INCLUDES}
-                    ${KODIPLATFORM_INCLUDE_DIRECTORIES}
+                    ${KODIPLATFORM_INCLUDE_DIRS}
                     ${KODI_INCLUDE_DIR})
 
 build_addon(pvr.vdr.vnsi VDR DEPLIBS)
