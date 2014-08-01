@@ -44,8 +44,8 @@ using namespace ADDON;
 using namespace PLATFORM;
 
 cVNSISession::cVNSISession()
-  : m_socket(NULL)
-  , m_protocol(0)
+  : m_protocol(0)
+  , m_socket(NULL)
   , m_connectionLost(false)
 {
 }
@@ -131,7 +131,7 @@ bool cVNSISession::Login()
     m_version   = ServerVersion;
     m_protocol  = (int)protocol;
 
-    if (m_protocol < VNSI_PROTOCOLVERSION)
+    if (m_protocol < VNSI_MIN_PROTOCOLVERSION)
       throw "Protocol versions do not match";
 
     if (m_name.empty())
