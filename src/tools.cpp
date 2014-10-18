@@ -25,11 +25,16 @@
 #define TYP_SMLE 1
 #define TYP_BIGE 2
 
+// need to check for ntohll definition
+// as it was added in iOS SDKs since 8.0
+#if !defined(ntohll)
 uint64_t ntohll(uint64_t a)
 {
   return htonll(a);
 }
+#endif
 
+#if !defined(htonll)
 uint64_t htonll(uint64_t a) {
   static int typ = TYP_INIT;
   unsigned char c;
@@ -50,3 +55,4 @@ uint64_t htonll(uint64_t a) {
   c = x.c[3]; x.c[3] = x.c[4]; x.c[4] = c;
   return x.ull;
 }
+#endif

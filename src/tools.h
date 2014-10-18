@@ -23,43 +23,16 @@
 #include <inttypes.h>
 #include "client.h"
 
+#ifndef TARGET_WINDOWS
+// need to check for ntohll definition
+// as it was added in iOS SDKs since 8.0
+#if !defined(ntohll)
 uint64_t ntohll(uint64_t a);
+#endif
+#if !defined(htonll)
 uint64_t htonll(uint64_t a);
+#endif
+#endif
 
 #include "xbmc/libXBMC_codec.h"
-
-class CodecDescriptor
-{
-public:
-  CodecDescriptor(void)
-  {
-    m_codec.codec_id   = XBMC_INVALID_CODEC_ID;
-    m_codec.codec_type = XBMC_CODEC_TYPE_UNKNOWN;
-  }
-
-  CodecDescriptor(xbmc_codec_t codec, const char* name) :
-    m_codec(codec),
-    m_strName(name) {}
-  virtual ~CodecDescriptor(void) {}
-
-  const std::string& Name(void) const  { return m_strName; }
-  xbmc_codec_t Codec(void) const { return m_codec; }
-
-  static CodecDescriptor GetCodecByName(const char* strCodecName)
-  {
-    CodecDescriptor retVal;
-    // some of Tvheadend's and VDR's codec names don't match ffmpeg's, so translate them to something ffmpeg understands
-    if (!strcmp(strCodecName, "MPEG2AUDIO"))
-      retVal = CodecDescriptor(CODEC->GetCodecByName("MP2"), strCodecName);
-    else if (!strcmp(strCodecName, "MPEGTS"))
-      retVal = CodecDescriptor(CODEC->GetCodecByName("MPEG2VIDEO"), strCodecName);
-    else
-      retVal = CodecDescriptor(CODEC->GetCodecByName(strCodecName), strCodecName);
-
-    return retVal;
-  }
-
-private:
-  xbmc_codec_t m_codec;
-  std::string  m_strName;
-};
+#include "xbmc/xbmc_codec_descriptor.hpp"
