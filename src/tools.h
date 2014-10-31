@@ -34,5 +34,5 @@ uint64_t htonll(uint64_t a);
 #endif
 #endif
 
-#include "xbmc/libXBMC_codec.h"
-#include "xbmc/xbmc_codec_descriptor.hpp"
+#include "kodi/libXBMC_codec.h"
+#include "kodi/xbmc_codec_descriptor.hpp"

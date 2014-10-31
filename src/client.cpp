@@ -20,13 +20,13 @@
  */
 
 #include "client.h"
-#include "xbmc/xbmc_pvr_dll.h"
+#include "kodi/xbmc_pvr_dll.h"
 #include "VNSIDemux.h"
 #include "VNSIRecording.h"
 #include "VNSIData.h"
 #include "VNSIChannelScan.h"
 #include "VNSIAdmin.h"
-#include "xbmc/util/util.h"
+#include "kodi/util/util.h"
 
 #include <sstream>
 #include <string>

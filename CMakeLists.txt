@@ -6,8 +6,8 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR})
 
 enable_language(CXX)
 
-find_package(xbmc REQUIRED)
-find_package(xbmcplatform REQUIRED)
+find_package(kodi REQUIRED)
+find_package(kodiplatform REQUIRED)
 
 add_definitions(-DUSE_DEMUX)
 
@@ -41,11 +41,11 @@ list(APPEND VDR_SOURCES src/client.cpp
                         src/VNSIRecording.cpp
                         src/VNSISession.cpp)
 
-list(APPEND DEPLIBS ${xbmcplatform_LIBRARIES})
+list(APPEND DEPLIBS ${KODIPLATFORM_LIBRARIES})
 
 include_directories(${INCLUDES}
-                    ${xbmcplatform_INCLUDE_DIRECTORIES}
-                    ${XBMC_INCLUDE_DIR})
+                    ${KODIPLATFORM_INCLUDE_DIRECTORIES}
+                    ${KODI_INCLUDE_DIR})
 
 build_addon(pvr.vdr.vnsi VDR DEPLIBS)
 

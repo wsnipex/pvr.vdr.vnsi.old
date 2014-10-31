@@ -23,7 +23,7 @@
 #include "responsepacket.h"
 #include "requestpacket.h"
 #include "vnsicommand.h"
-#include "xbmc/util/StdString.h"
+#include "kodi/util/StdString.h"
 
 using namespace ADDON;
 using namespace PLATFORM;
