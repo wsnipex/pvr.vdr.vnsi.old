@@ -41,13 +41,13 @@ list(APPEND VDR_SOURCES src/client.cpp
                         src/VNSIRecording.cpp
                         src/VNSISession.cpp)
 
-list(APPEND DEPLIBS ${KODIPLATFORM_LIBRARIES})
+list(APPEND DEPLIBS ${kodiplatform_LIBRARIES})
 if(WIN32)
   list(APPEND DEPLIBS ws2_32)
 endif()
 
 include_directories(${INCLUDES}
-                    ${KODIPLATFORM_INCLUDE_DIRS}
+                    ${kodiplatform_INCLUDE_DIRS}
                     ${KODI_INCLUDE_DIR})
 
 build_addon(pvr.vdr.vnsi VDR DEPLIBS)
