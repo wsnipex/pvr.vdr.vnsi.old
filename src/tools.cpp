@@ -21,6 +21,7 @@
 
 #include "tools.h"
 
+#ifndef TARGET_WINDOWS
 #define TYP_INIT 0
 #define TYP_SMLE 1
 #define TYP_BIGE 2
@@ -55,4 +56,5 @@ uint64_t htonll(uint64_t a) {
   c = x.c[3]; x.c[3] = x.c[4]; x.c[4] = c;
   return x.ull;
 }
+#endif
 #endif
