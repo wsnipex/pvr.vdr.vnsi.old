@@ -13,8 +13,8 @@
   <extension
     point="xbmc.pvrclient"
     library_linux="pvr.vdr.vnsi.so"
-    library_osx="pvr.vdr.vnsi.so"
-    library_wingl="pvr.vdr.vnsi.dll"
+    library_osx="pvr.vdr.vnsi.dylib"
+    library_freebsd="pvr.vdr.vnsi.so"
     library_windx="pvr.vdr.vnsi.dll"
     library_android="libpvr.vdr.vnsi.so"/>
   <extension point="xbmc.addon.metadata">
