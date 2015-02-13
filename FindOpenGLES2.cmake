@@ -11,14 +11,15 @@ if(PKG_CONFIG_FOUND)
 endif(PKG_CONFIG_FOUND)
 
 if(NOT OPENGLES2_FOUND)
-  if(APPLE)
-    # TODO: this might need some attention
-    set(OPENGLES2_gl_LIBRARY "-framework OpenGLES")
-  else(APPLE)
+  if(${CORE_SYSTEM_NAME} STREQUAL "ios")
+    find_library(OPENGLES2_gl_LIBRARY NAMES OpenGLES PATHS ${CMAKE_OSX_SYSROOT}/System/Library PATH_SUFFIXES Frameworks NO_DEFAULT_PATH)
+    set(OPENGLES2_INCLUDE_DIRS ${OPENGLES_LIBRARIES}/Headers)
+    set(OPENGLES2_egl_LIBRARY ${OPENGLES_LIBRARIES})
+  else()
     find_path(OPENGLES2_INCLUDE_DIRS GLES2/gl2.h)
     find_library(OPENGLES2_gl_LIBRARY NAMES GLESv2)
     find_library(OPENGLES2_egl_LIBRARY NAMES EGL)
-  endif(APPLE)
+  endif()
 
   include(FindPackageHandleStandardArgs)
   find_package_handle_standard_args(OpenGLES2 DEFAULT_MSG
