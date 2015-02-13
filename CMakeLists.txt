@@ -12,9 +12,8 @@ find_package(kodiplatform REQUIRED)
 add_definitions(-DUSE_DEMUX)
 
 if(NOT WIN32)
-  find_package(OpenGLES)
-  if(OPENGLES_FOUND)
-    find_package(OpenGLES2 REQUIRED)
+  find_package(OpenGLES2)
+  if(OPENGLES2_FOUND)
     set(VDR_SOURCES src/EGLHelpers/VisGUIShader.cpp
                     src/EGLHelpers/VisMatrixGLES.cpp
                     src/EGLHelpers/VisShader.cpp)
