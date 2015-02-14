@@ -6,50 +6,14 @@
 # dh-make output file, you may use that output file without restriction.
 # This special exception was added by Craig Small in version 0.37 of dh-make.
 
-# Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
-VDRVER = $(shell dpkg -s vdr-dev | awk '/Version/ { print $$2 }')
-VDRx = $(shell dpkg --compare-versions $(VDRVER) ge 2.0 ; echo $$?) # returns 0 on vdr >= 2.0
-VDR2 = $(strip $(VDRx))
-
 %:
 	dh $@ 
 
-override_dh_clean:
-	$(MAKE) clean -C vdr-plugin-vnsiserver
-	dh_clean
-
 override_dh_auto_configure:
 	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=1 -DUSE_LTO=1 -DCMAKE_INSTALL_PREFIX=/usr
-	debian/prepare-vnsiserver.sh
-
-override_dh_auto_build:
-ifeq ($(VDR2),0)
-	@echo "DETECTED VDR v2"
-	$(MAKE) -C vdr-plugin-vnsiserver
-else
-	@echo "OLD VDR"
-	VDRDIR=/usr/include/vdr LIBDIR=$(CURDIR)/debian/vdr-plugin-vnsiserver/usr/lib/vdr/plugins LOCALEDIR=locale $(MAKE) compile -C vdr-plugin-vnsiserver
-endif
-	dh_auto_build
 
 override_dh_strip:
-	dh_strip -pxbmc-pvr-vdr-vnsi --dbg-package=xbmc-pvr-vdr-vnsi-dbg
-	dh_strip -pvdr-plugin-vnsiserver --dbg-package=vdr-plugin-vnsiserver-dbg
-
-override_dh_auto_install:
-ifeq ($(VDR2),0)
-	DESTDIR=$(CURDIR)/debian/vdr-plugin-vnsiserver $(MAKE) install -C vdr-plugin-vnsiserver
-else
-	VDRDIR=/usr/include/vdr LIBDIR=$(CURDIR)/debian/vdr-plugin-vnsiserver/usr/lib/vdr/plugins LOCALEDIR=locale $(MAKE) install-lib -C vdr-plugin-vnsiserver
-endif
-	dh_auto_install
-
-override_dh_gencontrol:
-	for PACKAGE in $(shell cd debian && ls *.version | sed 's/.version//g'); do \
-             VERSION=$$(cat debian/$$PACKAGE.version) ;\
-             dh_gencontrol -p$$PACKAGE -- -ldebian/changelog -v$$VERSION ;\
-	done
+	dh_strip -pkodi-pvr-vdr-vnsi --dbg-package=kodi-pvr-vdr-vnsi-dbg
 
 override_dh_installdocs:
-	dh_installdocs --link-doc=xbmc-pvr-vdr-vnsi
+	dh_installdocs --link-doc=kodi-pvr-vdr-vnsi
